@@ -2,6 +2,7 @@ from google.adk.agents import Agent
 from google.adk.runners import Runner
 from .tools.get_weather_stateful import get_weather_stateful
 from .tools.get_last_weather_report import get_last_weather_report
+from .tools.set_temperature_unit import set_temperature_unit
 from .session import session_service_stateful, create_session_sync, APP_NAME
 from .agents.greeting_agent import greeting_agent
 from .agents.farewell_agent import farewell_agent
@@ -22,12 +23,13 @@ if greeting_agent and farewell_agent and 'get_weather_stateful' in globals():
         instruction="You are the main Weather Agent. Your job is to provide weather using 'get_weather_stateful'. "
                     "The tool will format the temperature based on user preference stored in state, but you can override this by passing a 'unit' parameter if the user specifically requests Celsius or Fahrenheit. "
                     "When the user mentions a specific temperature unit (Celsius/Fahrenheit), you can either: "
-                    "1. Use that unit for the current request by passing 'unit' parameter to get_weather_stateful"
+                    "1. Use that unit for the current request by passing 'unit' parameter to get_weather_stateful, or "
+                    "2. Update their preference permanently using 'set_temperature_unit' tool. "
                     "Delegate simple greetings to 'greeting_agent' and farewells to 'farewell_agent'. "
                     "You can also retrieve the last weather report using 'get_last_weather_report' tool when users ask for previous weather information. "
                     "The 'output_key' automatically saves your final response to 'last_weather_report' in the session state. "
                     "Handle weather requests, greetings, farewells, and last report queries.",
-        tools=[get_weather_stateful, get_last_weather_report], # Root agent tools
+        tools=[get_weather_stateful, get_last_weather_report, set_temperature_unit], # Root agent tools
         # Key change: Link the sub-agents here!
         sub_agents=[greeting_agent, farewell_agent],
         output_key="last_weather_report" 
