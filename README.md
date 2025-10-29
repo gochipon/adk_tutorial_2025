@@ -90,6 +90,22 @@ adk_tutorial/
 
 ## セットアップ
 
+< uvを用いた方法 >
+
+1. 環境変数を設定する
+   ```bash
+   cat << EOF > .env
+   GOOGLE_GENAI_USE_VERTEXAI=false
+   GOOGLE_API_KEY=your_google_api_key_here
+   OPENAI_API_KEY==your_open_ai_api_key_here
+   EOF
+   ```
+1. api keyを設定する
+1. `uv sync`
+1. `uv run adk web`
+
+
+<　pipを用いた方法　>
 ### 1. 依存関係のインストール
 
 ```bash
